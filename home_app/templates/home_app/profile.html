@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="post-content bg-white p-4" style="border: 90px solid #eee;">
+                    <div class="text-center">
+
+                        <img {% if user.profile.profile_image %} src="{{ user.profile.profile_image.url }}" {% else %}
+                                                         src="https://placehold.co/400" {% endif %}
+                                                         alt="Profile Picture" class="rounded-circle mb-3"
+                                                         style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #f48840;">
+                        <h2 class="mb-3"
+                            style="color: #20232e; font-weight: 900; text-transform: uppercase;">{{ user.get_full_name }}</h2>
+                        <p class="text-muted mb-4"><a href="{% url 'profile' user.username %}"
+                                                      style="color: #f48840;">@{{ user.username }}</a></p>
+                        <p class="text-muted mb-4">{{ user.profile.occupation }}</p>
+                    </div>
+                    <div class="profile-details">
+                        <div class="sidebar-heading">
+                            <h2>About Me</h2>
+                        </div>
+                        <p>{{ user.profile.bio }}</p>
+                    </div>
+                    <div class="profile-details mt-4">
+                        <div class="sidebar-heading">
+                            <h2>Contact Information</h2>
+                        </div>
+                        <ul class="contact-information">
+                            <li>
+                                <h5>Email</h5>
+                                <span>{{ user.email|default:"example@email.com" }}</span>
+                            </li>
+                            <li>
+                                <h5>Website</h5>
+                                <span><a href="#" style="color: #f48840;">{{ user.profile.website }}</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* LTR Adjustments and Custom Profile Styles */
+        body {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .profile-details p {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 25px 0;
+            margin: 25px 0;
+        }
+
+        .social-icons ul li {
+            margin-right: 30px;
+            margin-left: 0;
+        }
+
+        .social-icons ul li:after {
+            content: "|";
+            color: #7a7a7a;
+            margin-left: 30px;
+            margin-right: 0;
+        }
+
+        .social-icons ul li:last-child::after {
+            display: none;
+        }
+
+        .social-icons ul li a {
+            font-size: 14px;
+            color: #f48840;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .social-icons ul li a:hover {
+            color: #fb9857;
+        }
+
+        .contact-information li {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .contact-information li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .contact-information h5 {
+            font-size: 19px;
+            font-weight: 900;
+            color: #20232e;
+            line-height: 30px;
+        }
+
+        .contact-information span {
+            display: block;
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 8px;
+        }
+    </style>
+{% endblock %}

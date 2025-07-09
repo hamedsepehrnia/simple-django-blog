@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="blog-posts">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="post-content bg-white p-4" style="border: 90px solid #eee; border-radius: 10px;">
+          <div class="sidebar-heading text-center">
+            <h2>Create a New Account</h2>
+          </div>
+
+          {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+              Some fields are filled incorrectly. Please correct them.
+            </div>
+          {% endif %}
+
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} mt-3">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="form-group mt-3">
+              <label for="first_name">name</label>
+              <input type="text" name="first_name" class="form-control" id="username" required>
+            </div>
+              <div class="form-group mt-3">
+              <label for="last_name">lastname</label>
+              <input type="text" name="last_name" class="form-control" id="username" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="username">Username</label>
+              <input type="text" name="username" class="form-control" id="username" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="email">Email</label>
+              <input type="email" name="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="password1">Password</label>
+              <input type="password" name="password1" class="form-control" id="password1" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="password2">Confirm Password</label>
+              <input type="password" name="password2" class="form-control" id="password2" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="profile_image">Profile Picture</label>
+              <input type="file" name="profile_image" class="form-control" id="profile_image" accept="image/*">
+            </div>
+            <div class="form-group mt-3">
+              <label for="occupation">Occupation</label>
+              <input type="text" name="occupation" class="form-control" id="occupation">
+            </div>
+            <div class="form-group mt-3">
+              <label for="bio">Bio</label>
+              <textarea name="bio" class="form-control" id="bio" rows="4" style="resize: vertical;"></textarea>
+            </div>
+            <div class="form-group mt-3">
+              <label for="website">Personal Website</label>
+              <input type="url" name="website" class="form-control" id="website" placeholder="https://example.com">
+            </div>
+            <div class="text-center mt-4">
+              <div class="main-button">
+                <button type="submit" class="btn">Register</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <small>Already have an account?
+              <a href="{% url 'login' %}" style="color: #f48840;">Login here</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+/* LTR Adjustments and Custom Form Styles */
+body {
+  direction: ltr;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #20232e;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  border: 1px solid #eee;
+  font-size: 13px;
+  font-weight: 500;
+  color: #7a7a7a;
+  padding: 10px 15px;
+  height: 46px;
+}
+
+.form-control:focus {
+  border-color: #f48840;
+  box-shadow: none;
+}
+
+textarea.form-control {
+  height: 120px;
+  max-height: 200px;
+  min-height: 80px;
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}
+
+.main-button .btn {
+  background-color: #f48840;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 20px;
+  text-transform: uppercase;
+  transition: all .3s;
+  border: none;
+  width: 100%;
+  max-width: 200px;
+}
+
+.main-button .btn:hover {
+  background-color: #fb9857;
+}
+</style>
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script src="{% static 'assets/js/owl.js' %}"></script>
+<script src="{% static 'assets/js/slick.js' %}"></script>
+<script src="{% static 'assets/js/isotope.js' %}"></script>
+<script src="{% static 'assets/js/accordions.js' %}"></script>
+{% endblock %}

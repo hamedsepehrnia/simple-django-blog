@@ -1,0 +1,54 @@
+{% load static %}
+<style>
+    #form-submit {
+    background-color: #F48840;
+    color: white;
+    border: none;
+    border-radius: 0;
+    {#transform: translateX(10px);#}
+    font-family: 'Roboto', sans-serif;
+}
+
+</style>
+<div class="sidebar-item comments">
+    <div class="sidebar-heading">
+
+        <h2>{{ article.comments_count }} comments</h2>
+
+    </div>
+    <div class="content">
+        <ul>
+            {% for comment in article.comments.all %}
+                {% if comment.parent == None %}
+                    <li>
+                <div class="author-thumb">
+                    <img alt="" {% if comment.user.profile.profile_image.url %} src='{{ comment.user.profile.profile_image.url }}'{% else %} src="https://placehold.co/400" {%endif%}/>
+                </div>
+                <div class="right-content">
+                    <h4>{{ comment.user.username }}<span>{{ comment.published_date }}</span></h4>
+                    <p>{{ comment.content }}</p>
+                    <button onclick ="set_value({{ comment.id }})" id="form-submit">
+                        reply
+                    </button>
+                </div>
+
+            </li>
+                {% endif %}
+                <div></div>
+                {% for reply in comment.replies.all %}
+                    <li class="replied">
+                <div class="author-thumb">
+                    <img alt="" {% if comment.user.profile.profile_image.url %} src='{{ comment.user.profile.profile_image.url }}'{% else %} src="https://placehold.co/400" {%endif%}/>
+                </div>
+                <div class="right-content">
+                    <h4>{{ reply.user.username }}<span>{{ reply.published_date }}</span></h4>
+                    <p>{{ reply.content}}</p>
+                </div>
+            </li>
+                     <div></div>
+                    {% endfor %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
