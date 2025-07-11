@@ -16,15 +16,6 @@ def home(request):
     return render(request, "home_app/index.html", context)
 def about(request):
     return render(request, "home_app/about.html")
-def contact(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        message = request.POST.get("message")
-        subject = request.POST.get("subject")
-        Message.objects.create(name=name, email=email, message=message, subject=subject)
-    return render(request, "home_app/contact.html")
-
 def details(request, slug):
     articles = Article.objects.all()
     if not articles.exists():

@@ -2,113 +2,125 @@
 {% load static %}
 
 {% block content %}
-<section class="blog-posts">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-6">
-        <div class="post-content bg-white p-4" style="border: 90px solid #eee; border-radius: 10px;">
-          <div class="sidebar-heading text-center">
-            <h2>Login to Your Account</h2>
-          </div>
+    <section class="blog-posts">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="post-content bg-white p-4" style="border: 90px solid #eee; border-radius: 10px;">
+                        <div class="sidebar-heading text-center">
+                            <h2>Login to Your Account</h2>
+                        </div>
 
-          {% if form.errors %}
-            <div class="alert alert-danger mt-3">
-              لطفاً نام کاربری یا رمز عبور را به درستی وارد کنید.
-            </div>
-          {% endif %}
 
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }} mt-3">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
 
-          <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <div class="form-group mt-3">
-              <label for="username">Username</label>
-              <input type="text" name="username" class="form-control" id="username" required>
-            </div>
-            <div class="form-group mt-3">
-              <label for="password">Password</label>
-              <input type="password" name="password" class="form-control" id="password" required>
-            </div>
-            <div class="text-center mt-4">
-              <div class="main-button">
-                <button type="submit" class="btn">Login</button>
-              </div>
-            </div>
-          </form>
+                            <div class="form-group mt-3">
+                                <label for="username">Username</label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <div class="text-danger small">
+                                        {% for error in form.username.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
 
-          <div class="text-center mt-3">
-            <small>Don't have an account?
-              <a href="{% url 'register' %}" style="color: #f48840;">Register here</a>
-            </small>
-          </div>
+                            <div class="form-group mt-3">
+                                <label for="password">Password</label>
+                                {{ form.password }}
+                                {% if form.password.errors %}
+                                    <div class="text-danger small">
+                                        {% for error in form.password.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <div class="main-button">
+                                    <button type="submit" class="btn">Login</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <div class="text-center mt-3">
+                            <small>Don't have an account?
+                                <a href="{% url 'register' %}" style="color: #f48840;">Register here</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 
-<style>
-/* LTR Adjustments and Custom Form Styles */
-body {
-  direction: ltr;
-  text-align: left;
-}
+    <style>
+        /* LTR Adjustments and Custom Form Styles */
+        body {
+            direction: ltr;
+            text-align: left;
+        }
 
-.form-group label {
-  font-size: 15px;
-  font-weight: 700;
-  color: #20232e;
-  margin-bottom: 8px;
-}
+        .form-group label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #20232e;
+            margin-bottom: 8px;
+        }
 
-.form-control {
-  border: 1px solid #eee;
-  font-size: 13px;
-  font-weight: 500;
-  color: #7a7a7a;
-  padding: 10px 15px;
-  height: 46px;
-}
+        .form-control {
+            border: 1px solid #eee;
+            font-size: 13px;
+            font-weight: 500;
+            color: #7a7a7a;
+            padding: 10px 15px;
+            height: 46px;
+        }
 
-.form-control:focus {
-  border-color: #f48840;
-  box-shadow: none;
-}
+        .form-control:focus {
+            border-color: #f48840;
+            box-shadow: none;
+        }
 
-.form-control::placeholder {
-  color: #aaa;
-}
+        .form-control::placeholder {
+            color: #aaa;
+        }
 
-.main-button .btn {
-  background-color: #f48840;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 12px 20px;
-  text-transform: uppercase;
-  transition: all .3s;
-  border: none;
-  width: 100%;
-  max-width: 200px;
-}
+        .main-button .btn {
+            background-color: #f48840;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 12px 20px;
+            text-transform: uppercase;
+            transition: all .3s;
+            border: none;
+            width: 100%;
+            max-width: 200px;
+        }
 
-.main-button .btn:hover {
-  background-color: #fb9857;
-}
-</style>
+        .main-button .btn:hover {
+            background-color: #fb9857;
+        }
+    </style>
 
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/js/custom.js' %}"></script>
-<script src="{% static 'assets/js/owl.js' %}"></script>
-<script src="{% static 'assets/js/slick.js' %}"></script>
-<script src="{% static 'assets/js/isotope.js' %}"></script>
-<script src="{% static 'assets/js/accordions.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'assets/js/owl.js' %}"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
+    <script src="{% static 'assets/js/isotope.js' %}"></script>
+    <script src="{% static 'assets/js/accordions.js' %}"></script>
 {% endblock %}
