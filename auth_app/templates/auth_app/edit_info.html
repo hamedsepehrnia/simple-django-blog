@@ -46,21 +46,6 @@
                                 {% endif %}
                             </div>
 
-                            <div class="form-group mt-3">
-                                <label for="{{ form.password.id_for_label }}">Password</label>
-                                {{ form.password }}
-                                {% if form.password.errors %}
-                                    <div class="text-danger small">{{ form.password.errors }}</div>
-                                {% endif %}
-                            </div>
-
-                            <div class="form-group mt-3">
-                                <label for="{{ form.confirm_password.id_for_label }}">Confirm Password</label>
-                                {{ form.confirm_password }}
-                                {% if form.confirm_password.errors %}
-                                    <div class="text-danger small">{{ form.confirm_password.errors }}</div>
-                                {% endif %}
-                            </div>
 
                             <div class="form-group mt-3">
                                 <label for="{{ form2.profile_image.id_for_label }}">Profile Picture</label>
@@ -100,8 +85,6 @@
                                 </div>
                             </div>
                         </form>
-
-
 
                     </div>
                 </div>
