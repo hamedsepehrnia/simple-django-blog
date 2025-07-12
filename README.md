@@ -1,5 +1,6 @@
-````markdown
-# Django Blog Project
+
+
+### Django Blog Project
 
 A simple Django-powered blog application with article creation, dynamic templates, and database integration. Perfect for learning and practicing Django web development.
 
