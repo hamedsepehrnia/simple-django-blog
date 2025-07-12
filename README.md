@@ -7,7 +7,7 @@ A simple Django-powered blog application with article creation, dynamic template
 ## Features
 
 - Create, edit, and delete blog articles
-- Clean and minimal UI
+- edit profile
 - Login, register but no password reset system
 
 ## Technologies
