@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
-from .forms import RegisterForm1, RegisterForm2, LoginForm
+from .forms import RegisterForm1, RegisterForm2, LoginForm, EditProfileForm
 from auth_app.models import UserProfile
 
 
@@ -69,3 +69,26 @@ def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('/')
+def profile(request, username):
+    user = User.objects.get(username=username)
+    context = {'user': user}
+    return render(request, "auth_app/profile.html", context)
+
+
+def edit_profile(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST, instance=request.user, user=request.user)
+            form2 = RegisterForm2(request.POST, request.FILES, instance=request.user.profile)
+
+            if form.is_valid() and form2.is_valid():
+                form.save()
+                form2.save()
+                messages.success(request, 'Your account has been updated!')
+                return redirect('profile', username=request.user.username)  # اینجا username اضافه کردم
+        else:
+            form = EditProfileForm(instance=request.user, user=request.user)
+            form2 = RegisterForm2(instance=request.user.profile)
+
+        return render(request, 'auth_app/edit_info.html', {'form': form, 'form2': form2})
+    return redirect('login')

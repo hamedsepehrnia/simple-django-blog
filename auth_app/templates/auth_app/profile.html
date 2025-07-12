@@ -38,6 +38,10 @@
                                 <span><a href="#" style="color: #f48840;">{{ user.profile.website }}</a></span>
                             </li>
                         </ul>
+                        {% if request.user.is_authenticated and request.user.username == user.username %}
+                        <p class="text-muted mb-4"><a href="{% url 'edit_info' %}"
+                                                      style="color: #f48840;">edit your profile</a></p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

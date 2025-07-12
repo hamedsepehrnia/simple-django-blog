@@ -37,10 +37,6 @@ def details(request, slug):
         context = {'article': article, 'parent_id': request.POST.get('parent_id')}
         return render(request, "home_app/post-details.html", context)
 
-def profile(request, username):
-    user = User.objects.get(username=username)
-    context = {'user': user}
-    return render(request, "home_app/profile.html", context)
 def blog(request):
     articles = Article.objects.all()
     paginator = Paginator(articles, 8)
